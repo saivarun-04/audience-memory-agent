@@ -1297,7 +1297,7 @@ textarea::placeholder {
 
     <div
         class="nav-item"
-        onclick="recallMemory()"
+        onclick="handleMemoryNav()"
     >
         <span class="nav-icon">◌</span>
         <span>Memory</span>
@@ -2032,9 +2032,12 @@ function addResult(
         result
     );
 
-
-    conversation.scrollTop =
-        conversation.scrollHeight;
+    setTimeout(() => {
+        result.scrollIntoView({
+            behavior: "smooth",
+            block: "center"
+        });
+    }, 100);
 }
 
 
@@ -2154,6 +2157,11 @@ async function teachAgent() {
 /* =========================================
    RECALL
 ========================================= */
+
+function handleMemoryNav() {
+    recallMemory();
+}
+
 
 async function recallMemory() {
 
@@ -2284,10 +2292,22 @@ function showComparison() {
         );
 
 
+    const isHidden =
+        comparison.style.display === "none";
+
     comparison.style.display =
-        comparison.style.display === "none"
+        isHidden
             ? "grid"
             : "none";
+
+    if (isHidden) {
+        setTimeout(() => {
+            comparison.scrollIntoView({
+                behavior: "smooth",
+                block: "center"
+            });
+        }, 100);
+    }
 }
 
 
