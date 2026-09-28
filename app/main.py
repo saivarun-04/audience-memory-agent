@@ -67,9 +67,9 @@ def recommendation(platform: str = "LinkedIn"):
     return {
         "platform": platform,
         "recommendation": recommendation_text,
-        "reasoning": (
-            "Gemini generated this recommendation using audience memories "
-            "recalled from Hindsight."
-        ),
+      "reasoning": (
+    "Hindsight Reflect generated this recommendation using "
+    "the audience memories stored in Hindsight."
+),
         "based_on_memory": memories,
     }
