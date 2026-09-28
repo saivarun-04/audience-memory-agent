@@ -6,7 +6,7 @@ from openai import OpenAI
 
 load_dotenv()
 
-OPENAI_API_KEY = os.environ["OPENAI_API_KEY"]
+OPENAI_API_KEY = os.environ["FREELLMAPI_API_KEY"]
 OPENAI_BASE_URL = "http://127.0.0.1:31415/v1"
 
 llm = OpenAI(
