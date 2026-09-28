@@ -209,26 +209,6 @@ concise, specific code examples.
 
 Avoid generic motivational content.
 ```
-## 📸 Screenshots
-
-### 1. Learn — Teach EchoMind
-
-Add real audience experiences and store them in Hindsight.
-
-![EchoMind Learn](docs/learn.png)
-
-### 2. Memory — What Hindsight Remembers
-
-View the audience insights retrieved from persistent memory.
-
-![EchoMind Memory](docs/memory.png)
-
-### 3. Recommendation — Memory to Decision
-
-Generate a recommendation based on the audience's remembered behavior.
-
-![EchoMind Recommendation](docs/recommendation.png)
-
 
 ---
 
