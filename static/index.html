@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Audience Memory Agent</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f5f7fb;
+            color: #172033;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 40px 24px;
+        }
+
+        header {
+            margin-bottom: 32px;
+        }
+
+        h1 {
+            margin-bottom: 8px;
+            font-size: 36px;
+        }
+
+        .subtitle {
+            color: #667085;
+            font-size: 17px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .card {
+            background: white;
+            border: 1px solid #e4e7ec;
+            border-radius: 16px;
+            padding: 24px;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
+        }
+
+        .card h2 {
+            margin-top: 0;
+        }
+
+        textarea {
+            width: 100%;
+            min-height: 140px;
+            padding: 14px;
+            border: 1px solid #d0d5dd;
+            border-radius: 10px;
+            resize: vertical;
+            font-family: inherit;
+            font-size: 14px;
+        }
+
+        button {
+            margin-top: 14px;
+            padding: 12px 18px;
+            border: none;
+            border-radius: 9px;
+            background: #172033;
+            color: white;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        button:hover {
+            opacity: 0.9;
+        }
+
+        .memory {
+            margin-top: 14px;
+            padding: 14px;
+            background: #f8fafc;
+            border-left: 4px solid #172033;
+            border-radius: 8px;
+            line-height: 1.5;
+        }
+
+        .status {
+            margin-top: 12px;
+            color: #667085;
+            font-size: 14px;
+        }
+
+        .full {
+            grid-column: 1 / -1;
+        }
+
+        .tag {
+            display: inline-block;
+            padding: 6px 10px;
+            border-radius: 20px;
+            background: #eef2ff;
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+
+        @media (max-width: 800px) {
+            .grid {
+                grid-template-columns: 1fr;
+            }
+
+            .full {
+                grid-column: auto;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <header>
+        <div class="tag">HINDSIGHT-POWERED</div>
+        <h1>Audience Memory Agent</h1>
+        <p class="subtitle">
+            A social intelligence agent that remembers what an audience responds to
+            and uses those experiences to guide future content decisions.
+        </p>
+    </header>
+
+    <div class="grid">
+
+        <div class="card">
+            <h2>Teach the Agent</h2>
+
+            <textarea id="experience"
+                placeholder="Example: Our LinkedIn post about practical Python tips received strong engagement..."></textarea>
+
+            <button onclick="teachAgent()">Store Experience</button>
+
+            <div id="learnStatus" class="status"></div>
+        </div>
+
+        <div class="card">
+            <h2>Ask Audience Memory</h2>
+
+            <p>
+                What has the audience responded positively to?
+            </p>
+
+            <button onclick="recallMemory()">Recall Memory</button>
+
+            <div id="memoryResult"></div>
+        </div>
+
+        <div class="card full">
+            <h2>Why This Matters</h2>
+
+            <p>
+                Instead of treating every social-media decision as a fresh task,
+                the agent builds a longitudinal memory of content performance
+                and audience behavior.
+            </p>
+
+            <p>
+                <strong>Experience → Memory → Recall → Better decision</strong>
+            </p>
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+async function teachAgent() {
+    const experience = document.getElementById("experience").value.trim();
+    const status = document.getElementById("learnStatus");
+
+    if (!experience) {
+        status.textContent = "Enter an audience experience first.";
+        return;
+    }
+
+    status.textContent = "Storing experience...";
+
+    try {
+        const response = await fetch("/learn", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                content: experience,
+                context: "Social media performance"
+            })
+        });
+
+        const data = await response.json();
+
+        status.textContent = data.success
+            ? "✓ Experience stored in Hindsight memory."
+            : "Unable to store experience.";
+    } catch (error) {
+        status.textContent = "Backend connection failed.";
+    }
+}
+
+
+async function recallMemory() {
+    const result = document.getElementById("memoryResult");
+
+    result.innerHTML = "Recalling audience memory...";
+
+    try {
+        const response = await fetch("/memory");
+        const data = await response.json();
+
+        result.innerHTML = "";
+
+        data.memories.forEach(memory => {
+            const div = document.createElement("div");
+            div.className = "memory";
+            div.textContent = memory;
+            result.appendChild(div);
+        });
+
+    } catch (error) {
+        result.innerHTML =
+            '<div class="memory">Backend connection failed.</div>';
+    }
+}
+</script>
+
+</body>
+</html>
