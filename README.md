@@ -12,7 +12,7 @@ Instead of treating every post as a fresh decision, EchoMind builds persistent m
 
 ## 🚀 Live Demo
 
-**[Launch EchoMind](https://echomind-ai0o.onrender.com)**
+**[Launch EchoMind](https://echomind-aio0.onrender.com)**
 
 **GitHub:** [github.com/saivarun-04/echomind](https://github.com/saivarun-04/echomind)
 
